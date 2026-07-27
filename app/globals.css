@@ -1,0 +1,245 @@
+/* ============================================================
+   WAGMI Boys - global tokens + base styles
+   Palette and type are deliberate. See build brief.
+   ============================================================ */
+
+:root {
+  /* palette */
+  --ink: #12101b; /* page base - deep charcoal-purple */
+  --ink-2: #1b1828; /* raised surfaces / cards */
+  --amber: #f4b942; /* tribe-warmth - war-cry bands, glows */
+  --teal: #3adea0; /* single action accent - CTAs ONLY */
+  --paper: #f3efe4; /* primary text */
+  --lav: #b7afc9; /* muted / secondary text */
+  --line: rgba(243, 239, 228, 0.14); /* hairline dividers */
+
+  /* derived tints (kept sparse, never a second accent) */
+  --amber-soft: rgba(244, 185, 66, 0.16);
+  --amber-glow: rgba(244, 185, 66, 0.42);
+  --teal-soft: rgba(58, 222, 160, 0.14);
+  --ink-2-solid: #1b1828;
+
+  /* fonts (wired via next/font in layout.js) */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* geometry */
+  --radius: 13px;
+  --radius-sm: 10px;
+  --maxw: 1180px;
+  --gutter: clamp(20px, 5vw, 56px);
+
+  /* motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---- reset-ish ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* faint fixed atmosphere behind everything - amber warmth, very subtle */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      900px 600px at 15% -5%,
+      rgba(244, 185, 66, 0.09),
+      transparent 60%
+    ),
+    radial-gradient(
+      800px 700px at 95% 8%,
+      rgba(58, 222, 160, 0.05),
+      transparent 55%
+    );
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.98;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---- shared layout helpers ---- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.section {
+  padding-block: clamp(48px, 7vw, 96px);
+  position: relative;
+}
+
+/* ---- buttons ---- */
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--paper);
+  --btn-bd: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 0.95em 1.5em;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--btn-bd);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  cursor: pointer;
+  transition:
+    transform 0.18s var(--ease),
+    box-shadow 0.25s var(--ease),
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    opacity 0.2s var(--ease);
+  white-space: nowrap;
+}
+
+/* teal - actions ONLY */
+.btn--primary {
+  --btn-bg: var(--teal);
+  --btn-fg: #06231a;
+  box-shadow: 0 8px 26px -12px rgba(58, 222, 160, 0.7);
+}
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px -12px rgba(58, 222, 160, 0.85);
+}
+
+/* ghost outline */
+.btn--ghost {
+  --btn-bd: var(--line);
+  --btn-fg: var(--paper);
+}
+.btn--ghost:hover {
+  --btn-bd: rgba(243, 239, 228, 0.4);
+  background: rgba(243, 239, 228, 0.04);
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* ---- accessible focus (quality floor) ---- */
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* skip link */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 200;
+  background: var(--teal);
+  color: #06231a;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: top 0.2s var(--ease);
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ---- scroll-reveal (progressive enhancement) ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+  will-change: opacity, transform;
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- reduced motion: kill ALL animation (non-negotiable) ---- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

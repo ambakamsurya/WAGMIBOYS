@@ -1,0 +1,88 @@
+.band {
+  width: 100%;
+  background: var(--amber);
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* the glow pulse - a soft light sweeping bloom behind the text */
+.band::before {
+  content: "";
+  position: absolute;
+  inset: -40% -10%;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 245, 214, 0.55),
+    transparent 62%
+  );
+  opacity: 0.28;
+  animation: warcryPulse 4.5s ease-in-out infinite;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding: clamp(18px, 3.2vw, 30px) var(--gutter);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.line {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.14;
+  color: var(--ink);
+  text-wrap: balance;
+  font-size: clamp(1.05rem, 2.6vw, 1.9rem);
+}
+
+/* escalation: each band down the page burns a little brighter / bolder */
+.band[data-intensity="1"] .line {
+  letter-spacing: 0.05em;
+}
+.band[data-intensity="2"] {
+  box-shadow: inset 0 0 0 1px rgba(18, 16, 27, 0.08);
+}
+.band[data-intensity="2"] .line {
+  letter-spacing: 0.08em;
+  font-size: clamp(1.1rem, 2.9vw, 2.1rem);
+}
+.band[data-intensity="2"]::before {
+  opacity: 0.38;
+  animation-duration: 3.6s;
+}
+.band[data-intensity="3"] .line {
+  letter-spacing: 0.12em;
+  font-size: clamp(1.2rem, 3.3vw, 2.4rem);
+}
+.band[data-intensity="3"]::before {
+  opacity: 0.5;
+  animation-duration: 2.8s;
+}
+
+@keyframes warcryPulse {
+  0%,
+  100% {
+    opacity: 0.22;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .band::before {
+    animation: none;
+    opacity: 0.3;
+  }
+}

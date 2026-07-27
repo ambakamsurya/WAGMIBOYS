@@ -1,0 +1,58 @@
+.ticker {
+  width: 100%;
+  background: var(--amber);
+  color: var(--ink);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(18, 16, 27, 0.12);
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: tickerScroll 34s linear infinite;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-block: 8px;
+}
+
+.item {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dot {
+  padding-inline: 1.1em;
+  opacity: 0.55;
+}
+
+@keyframes tickerScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* pause on hover - small nicety, lets people read it */
+.ticker:hover .marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+    /* still show the first track, just static */
+    transform: none;
+  }
+}
