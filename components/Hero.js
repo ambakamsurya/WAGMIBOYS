@@ -4,8 +4,6 @@ export default function Hero() {
   return (
     <section className={styles.hero} id="top">
       <div className={`container ${styles.inner}`}>
-        <p className={`eyebrow ${styles.eyebrow}`}>WAGMI Vibes Presents</p>
-
         <h1 className={styles.headline}>
           We&apos;re <span className={styles.soEarly}>So Early.</span>
         </h1>

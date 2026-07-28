@@ -7,7 +7,7 @@ import { XIcon } from "./Icons";
 const LINKS = [
   { href: "#tribe", label: "The Tribe" },
   { href: "#how", label: "How It Works" },
-  { href: "#season1", label: "Season 1" },
+  { href: "#season1", label: "Content" },
   { href: "#roadmap", label: "Roadmap" },
 ];
 
